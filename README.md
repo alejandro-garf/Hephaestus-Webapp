@@ -19,7 +19,7 @@ So far thisn project serves as the initial framework for building the full-featu
 ## Future Development
 
 This skeleton is designed to be expanded with additional features, pages, and customizations. Specifally to:
-- Match the UI Interface designed [here}(https://github.com/alejandro-garf/Hephaestus/blob/main/Dashboard/README.md).
+- Match the UI Interface designed [here](https://github.com/alejandro-garf/Hephaestus/blob/main/Dashboard/README.md).
 - Display data drom database in an interactive and accurate manner.
 - Future updates and developments will be reflected here
 
