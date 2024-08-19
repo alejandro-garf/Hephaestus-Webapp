@@ -1,37 +1,48 @@
-'use client'
+'use client'; 
+
 import { useContext, createContext, useState, useEffect } from "react";
-import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, updateCurrentUser } from "firebase/auth";
+import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../firebase";
 
-const AuthContext = createContext()
+// Context for authentication
+const AuthContext = createContext();
+
+// Google Auth provider instance
 const provider = new GoogleAuthProvider();
 
-export const AuthContextProvider = ({children}) => {
-    const [user, setUser] = useState(null)
+// AuthContextProvider component to wrap around components that need access to the auth context
+export const AuthContextProvider = ({ children }) => {
+    // State to hold the current user object
+    const [user, setUser] = useState(null);
 
+    // Function to handle Google sign-in
     const googleSignIn = () => {
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider);
+        const provider = new GoogleAuthProvider(); // new GoogleAuthProvider instance
+        signInWithPopup(auth, provider); // Sign in with a popup using Firebase auth and Google provider
     };
 
+    // Function to handle sign-out
     const logOut = () => {
-        signOut(auth);
+        signOut(auth); // Sign out the current user using Firebase auth
     };
 
+    // useEffect to handle changes in authentication state
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);    
+            setUser(currentUser); // Set the user state when authentication state changes
         });
-        return () => unsubscribe(); // Clean up subscription
+        return () => unsubscribe(); // Clean up the subscription to avoid memory leaks
     }, []);
 
+    // Provide the user, googleSignIn, and logOut functions to any component that consumes this context
     return (
         <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
             {children}
-            </AuthContext.Provider>
+        </AuthContext.Provider>
     );
 };
 
+// Custom hook to use the AuthContext in other components
 export const UserAuth = () => {
-    return useContext(AuthContext);
+    return useContext(AuthContext); // Access the AuthContext to get the user and auth functions
 };
