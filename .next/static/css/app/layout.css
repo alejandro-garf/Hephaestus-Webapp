@@ -599,6 +599,18 @@ video {
     max-width: 1536px;
   }
 }
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.left-0 {
+  left: 0px;
+}
+.top-0 {
+  top: 0px;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -615,14 +627,23 @@ video {
 .flex {
   display: flex;
 }
+.h-full {
+  height: 100%;
+}
 .h-screen {
   height: 100vh;
 }
 .w-1\/2 {
   width: 50%;
 }
+.w-full {
+  width: 100%;
+}
 .cursor-pointer {
   cursor: pointer;
+}
+.flex-col {
+  flex-direction: column;
 }
 .items-center {
   align-items: center;
@@ -638,6 +659,9 @@ video {
   margin-right: calc(1rem * var(--tw-space-x-reverse));
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
+.overflow-hidden {
+  overflow: hidden;
+}
 .rounded-full {
   border-radius: 9999px;
 }
@@ -652,6 +676,9 @@ video {
 .bg-green-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+.object-cover {
+  object-fit: cover;
 }
 .p-2 {
   padding: 0.5rem;
@@ -692,138 +719,145 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-100 {
+  opacity: 1;
+}
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.duration-1000 {
+  transition-duration: 1000ms;
+}
 .duration-300 {
   transition-duration: 300ms;
+}
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 :root {
-  --foreground-rgb: 255, 255, 255; /* White color for foreground elements */
-  --navbar-footer-start-rgb: 58, 17, 110; /* Start color of the navbar/footer gradient */
-  --navbar-footer-end-rgb: 123, 31, 162; /* End color of the navbar/footer gradient */
-  --background-start-rgb: 0, 0, 0; /* Start color of the black gradient */
-  --background-end-rgb: 50, 50, 50; /* End color of the black gradient */
-  --button-text-color: #7B1FA2; /* Purple color for button text */
+  --foreground-rgb: 255, 255, 255;
+  --navbar-footer-start-rgb: 58, 17, 110;
+  --navbar-footer-end-rgb: 123, 31, 162;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 50, 50, 50;
+  --button-text-color: #7B1FA2;
 }
 
-/* Base styling for the body */
 body {
-  font-family: 'Inter', sans-serif; /* Apply the Inter font */
-  background-color: var(--background-color); /* Set background color (should be defined in :root) */
-  color: rgb(var(--foreground-rgb)); /* Set text color to white */
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background-color);
+  color: rgb(var(--foreground-rgb));
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Ensure padding and border are included in element's width and height */
+  box-sizing: border-box;
 }
 
-/* Styling for the navbar and footer */
 .navbar, .footer {
   background: linear-gradient(
     to right,
     rgb(var(--navbar-footer-start-rgb)),
     rgb(var(--navbar-footer-end-rgb))
-  ); /* Apply a horizontal purple gradient */
-  color: rgb(var(--foreground-rgb)) !important; /* Set text color to white */
+  );
+  color: rgb(var(--foreground-rgb)) !important;
   padding: 10px;
-  font-family: 'Inter', sans-serif; /* Use Inter font */
-  font-weight: bold; /* Make text bold */
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
 }
 
-/* Home container styling */
 .home-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100vh; /* Full viewport height */
+  min-height: 100vh; /* Ensure it takes at least full viewport height */
   padding: 0 10%;
   background: linear-gradient(
     to bottom,
     rgb(var(--background-start-rgb)),
     rgb(var(--background-end-rgb))
-  ); /* Apply vertical black gradient */
-  font-family: 'Inter', sans-serif; /* Use Inter font */
+  );
+  font-family: 'Inter', sans-serif;
 }
 
-/* Footer styling */
 .footer {
   background: linear-gradient(
     to bottom,
     rgb(var(--background-end-rgb)),
     rgb(var(--background-end-rgb))
-  ); /* Continue the black gradient from the body */
+  );
   padding: 10px 0;
-  text-align: center; /* Center text */
-  font-family: 'Inter', sans-serif; /* Use Inter font */
-  font-weight: bold; /* Make text bold */
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
 }
 
-/* Styling for footer text and links with a white gradient */
 .footer p, .footer a {
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0.9),
     rgba(255, 255, 255, 0.6)
-  ); /* Apply a horizontal white gradient to text */
-  -webkit-background-clip: text; /* Clip background to text */
-  -webkit-text-fill-color: transparent; /* Make text color transparent to reveal the gradient */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Styling for main headings and paragraphs in the home section */
 .text-section h1, .text-section p {
   background: linear-gradient(
     to right,
     rgb(var(--navbar-footer-start-rgb)),
     rgb(var(--navbar-footer-end-rgb))
-  ); /* Apply a horizontal purple gradient to text */
-  -webkit-background-clip: text; /* Clip background to text */
-  -webkit-text-fill-color: transparent; /* Make text color transparent to reveal the gradient */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Styling for the sign-in button */
 .sign-in-btn {
   background: linear-gradient(
     to right,
     rgb(var(--background-start-rgb)),
     rgb(var(--background-end-rgb))
-  ); /* Apply horizontal black gradient to the button */
-  color: var(--button-text-color); /* Set text color to purple */
-  padding: 0.75rem 2rem; /* Add padding inside the button */
-  border-radius: 9999px; /* Make the button fully rounded */
-  text-transform: uppercase; /* Transform text to uppercase */
-  font-weight: bold; /* Make text bold */
-  transition: background-color 0.3s ease; /* Smooth transition effect on hover */
-  border: none; /* Remove default button border */
-  cursor: pointer; /* Show pointer cursor on hover */
+  );
+  color: var(--button-text-color);
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
 }
 
-/* Hover effect for the sign-in button */
 .sign-in-btn:hover {
-  background-color: #333333; /* Slightly darken background on hover */
+  background-color: #333333;
 }
 
-/* Styling for images in the image section */
 .image-section img {
-  max-width: 100%; /* Ensure image doesn't exceed its container's width */
-  height: auto; /* Maintain aspect ratio */
-  width: 50%; /* Set width of image */
+  max-width: 100%;
+  height: auto;
+  width: 50%;
 }
+
 .hover\:bg-blue-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
+
 .hover\:bg-green-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
+
 .hover\:text-gray-400:hover {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
-
