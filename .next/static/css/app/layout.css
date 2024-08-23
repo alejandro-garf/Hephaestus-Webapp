@@ -565,7 +565,7 @@ video {
   --tw-contain-layout:  ;
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
-}
+} /* Tailwind's base styles */
 .container {
   width: 100%;
 }
@@ -598,7 +598,7 @@ video {
   .container {
     max-width: 1536px;
   }
-}
+} /* Tailwind's component styles */
 .absolute {
   position: absolute;
 }
@@ -636,6 +636,15 @@ video {
 .w-1\/2 {
   width: 50%;
 }
+.w-1\/3 {
+  width: 33.333333%;
+}
+.w-2\/3 {
+  width: 66.666667%;
+}
+.w-3\/4 {
+  width: 75%;
+}
 .w-full {
   width: 100%;
 }
@@ -669,13 +678,32 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
-.bg-blue-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 58 138 / var(--tw-bg-opacity));
-}
 .bg-green-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+.from-black {
+  --tw-gradient-from: #000 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.from-gray-800 {
+  --tw-gradient-from: #1f2937 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(31 41 55 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.via-gray-900 {
+  --tw-gradient-to: rgb(17 24 39 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #111827 var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.to-black {
+  --tw-gradient-to: #000 var(--tw-gradient-to-position);
+}
+.to-gray-800 {
+  --tw-gradient-to: #1f2937 var(--tw-gradient-to-position);
 }
 .object-cover {
   object-fit: cover;
@@ -689,16 +717,31 @@ video {
 .p-8 {
   padding: 2rem;
 }
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
+.pr-8 {
+  padding-right: 2rem;
+}
 .text-center {
   text-align: center;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 .text-5xl {
   font-size: 3rem;
@@ -743,65 +786,82 @@ video {
 }
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
+} /* Tailwind's utility classes */
 
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+/* Root variables for theming colors */
 :root {
   --foreground-rgb: 255, 255, 255;
-  --navbar-footer-start-rgb: 58, 17, 110;
-  --navbar-footer-end-rgb: 123, 31, 162;
   --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 50, 50, 50;
-  --button-text-color: #7B1FA2;
+  --background-mid-rgb: 17, 24, 39;
+  --background-end-rgb: 31, 41, 55;
 }
 
+/* Global styles for the body */
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--background-color);
   color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-end-rgb));
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.navbar, .footer {
-  background: linear-gradient(
-    to right,
-    rgb(var(--navbar-footer-start-rgb)),
-    rgb(var(--navbar-footer-end-rgb))
-  );
-  color: rgb(var(--foreground-rgb)) !important;
-  padding: 10px;
-  font-family: 'Inter', sans-serif;
-  font-weight: bold;
-}
-
-.home-container {
-  min-height: 100vh; /* Ensure it takes at least full viewport height */
-  padding: 0 10%;
+/* Styles for the navbar */
+.navbar {
   background: linear-gradient(
     to bottom,
     rgb(var(--background-start-rgb)),
-    rgb(var(--background-end-rgb))
+    rgb(var(--background-mid-rgb))
   );
-  font-family: 'Inter', sans-serif;
-}
-
-.footer {
-  background: linear-gradient(
-    to bottom,
-    rgb(var(--background-end-rgb)),
-    rgb(var(--background-end-rgb))
-  );
-  padding: 10px 0;
-  text-align: center;
+  color: rgb(var(--foreground-rgb));
+  padding: 1rem;
   font-family: 'Inter', sans-serif;
   font-weight: bold;
 }
 
-.footer p, .footer a {
+/* Styles for the home container */
+.home-container {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-mid-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  color: rgb(var(--foreground-rgb));
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  padding: 4rem 10%;
+}
+
+/* Styles for the product information section */
+.product-info {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-end-rgb)),
+    rgb(var(--background-mid-rgb)),
+    rgb(var(--background-start-rgb))
+  );
+  color: rgb(var(--foreground-rgb));
+  font-family: 'Inter', sans-serif;
+  min-height: 50vh;
+  padding: 4rem 10%;
+}
+
+/* Styles for the footer */
+.footer {
+  background: rgb(var(--background-start-rgb));
+  padding: 1rem 0;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  color: rgb(var(--foreground-rgb));
+}
+
+/* Gradient text effect for headings and paragraphs */
+.text-section h1, .text-section p, .product-info h2, .product-info p {
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0.9),
@@ -811,23 +871,14 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.text-section h1, .text-section p {
-  background: linear-gradient(
-    to right,
-    rgb(var(--navbar-footer-start-rgb)),
-    rgb(var(--navbar-footer-end-rgb))
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.sign-in-btn {
+/* Button styles for sign-in and dashboard actions */
+.sign-in-btn, .Dashboard-btn {
   background: linear-gradient(
     to right,
     rgb(var(--background-start-rgb)),
     rgb(var(--background-end-rgb))
   );
-  color: var(--button-text-color);
+  color: rgb(var(--foreground-rgb));
   padding: 0.75rem 2rem;
   border-radius: 9999px;
   text-transform: uppercase;
@@ -837,27 +888,47 @@ body {
   cursor: pointer;
 }
 
-.sign-in-btn:hover {
-  background-color: #333333;
+/* Hover effect for buttons */
+.sign-in-btn:hover, .Dashboard-btn:hover {
+  background-color: rgb(var(--background-mid-rgb));
 }
 
-.image-section img {
+/* Styles for images within the image and logo sections */
+.image-section img, .logo-section img {
   max-width: 100%;
   height: auto;
-  width: 50%;
 }
 
+/* Layout for the product information section */
+.product-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Text section within the product information */
+.product-info .info-text {
+  flex: 2;
+  padding-right: 2rem;
+}
+
+/* Logo section within the product information */
+.product-info .logo-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .hover\:bg-blue-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
-
 .hover\:bg-green-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
-
 .hover\:text-gray-400:hover {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
+

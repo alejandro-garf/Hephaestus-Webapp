@@ -1,64 +1,81 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@tailwind base; /* Tailwind's base styles */
+@tailwind components; /* Tailwind's component styles */
+@tailwind utilities; /* Tailwind's utility classes */
 
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+/* Root variables for theming colors */
 :root {
   --foreground-rgb: 255, 255, 255;
-  --navbar-footer-start-rgb: 58, 17, 110;
-  --navbar-footer-end-rgb: 123, 31, 162;
   --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 50, 50, 50;
-  --button-text-color: #7B1FA2;
+  --background-mid-rgb: 17, 24, 39;
+  --background-end-rgb: 31, 41, 55;
 }
 
+/* Global styles for the body */
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--background-color);
   color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-end-rgb));
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.navbar, .footer {
-  background: linear-gradient(
-    to right,
-    rgb(var(--navbar-footer-start-rgb)),
-    rgb(var(--navbar-footer-end-rgb))
-  );
-  color: rgb(var(--foreground-rgb)) !important;
-  padding: 10px;
-  font-family: 'Inter', sans-serif;
-  font-weight: bold;
-}
-
-.home-container {
-  min-height: 100vh; /* Ensure it takes at least full viewport height */
-  padding: 0 10%;
+/* Styles for the navbar */
+.navbar {
   background: linear-gradient(
     to bottom,
     rgb(var(--background-start-rgb)),
-    rgb(var(--background-end-rgb))
+    rgb(var(--background-mid-rgb))
   );
-  font-family: 'Inter', sans-serif;
-}
-
-.footer {
-  background: linear-gradient(
-    to bottom,
-    rgb(var(--background-end-rgb)),
-    rgb(var(--background-end-rgb))
-  );
-  padding: 10px 0;
-  text-align: center;
+  color: rgb(var(--foreground-rgb));
+  padding: 1rem;
   font-family: 'Inter', sans-serif;
   font-weight: bold;
 }
 
-.footer p, .footer a {
+/* Styles for the home container */
+.home-container {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-mid-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  color: rgb(var(--foreground-rgb));
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  padding: 4rem 10%;
+}
+
+/* Styles for the product information section */
+.product-info {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-end-rgb)),
+    rgb(var(--background-mid-rgb)),
+    rgb(var(--background-start-rgb))
+  );
+  color: rgb(var(--foreground-rgb));
+  font-family: 'Inter', sans-serif;
+  min-height: 50vh;
+  padding: 4rem 10%;
+}
+
+/* Styles for the footer */
+.footer {
+  background: rgb(var(--background-start-rgb));
+  padding: 1rem 0;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  color: rgb(var(--foreground-rgb));
+}
+
+/* Gradient text effect for headings and paragraphs */
+.text-section h1, .text-section p, .product-info h2, .product-info p {
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0.9),
@@ -68,23 +85,14 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.text-section h1, .text-section p {
-  background: linear-gradient(
-    to right,
-    rgb(var(--navbar-footer-start-rgb)),
-    rgb(var(--navbar-footer-end-rgb))
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.sign-in-btn {
+/* Button styles for sign-in and dashboard actions */
+.sign-in-btn, .Dashboard-btn {
   background: linear-gradient(
     to right,
     rgb(var(--background-start-rgb)),
     rgb(var(--background-end-rgb))
   );
-  color: var(--button-text-color);
+  color: rgb(var(--foreground-rgb));
   padding: 0.75rem 2rem;
   border-radius: 9999px;
   text-transform: uppercase;
@@ -94,12 +102,34 @@ body {
   cursor: pointer;
 }
 
-.sign-in-btn:hover {
-  background-color: #333333;
+/* Hover effect for buttons */
+.sign-in-btn:hover, .Dashboard-btn:hover {
+  background-color: rgb(var(--background-mid-rgb));
 }
 
-.image-section img {
+/* Styles for images within the image and logo sections */
+.image-section img, .logo-section img {
   max-width: 100%;
   height: auto;
-  width: 50%;
+}
+
+/* Layout for the product information section */
+.product-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Text section within the product information */
+.product-info .info-text {
+  flex: 2;
+  padding-right: 2rem;
+}
+
+/* Logo section within the product information */
+.product-info .logo-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
