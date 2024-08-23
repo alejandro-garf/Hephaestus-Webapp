@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { UserAuth } from "./context/AuthContext";
 
 // Update this constant to match the route in your Navbar
-const PROFILE_ROUTE = '/Profile';
+const Dashboard_ROUTE = '/Dashboard';
 
 export default function HomePage() {
   const { user, googleSignIn } = UserAuth();
@@ -14,8 +14,8 @@ export default function HomePage() {
   const handleSignIn = async () => {
     try {
       await googleSignIn();
-      // Redirect to profile page after successful sign-in
-      router.push(PROFILE_ROUTE);
+      // Redirect to Dashbaord page after successful sign-in
+      router.push(Dashboard_ROUTE);
     } catch (error) {
       console.error("Error signing in:", error);
     }
@@ -34,9 +34,9 @@ export default function HomePage() {
             SIGN IN
           </button>
         ) : (
-          <Link href={PROFILE_ROUTE}>
-            <button className="profile-btn text-white px-6 py-3 rounded-full text-lg font-bold bg-green-600 hover:bg-green-700 transition duration-300">
-              GO TO PROFILE
+          <Link href={Dashboard_ROUTE}>
+            <button className="Dashboard-btn text-white px-6 py-3 rounded-full text-lg font-bold bg-green-600 hover:bg-green-700 transition duration-300">
+              Dashboard
             </button>
           </Link>
         )}

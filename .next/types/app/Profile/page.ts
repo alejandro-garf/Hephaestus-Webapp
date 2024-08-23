@@ -1,4 +1,4 @@
-// File: /Users/alejandro-garf/Programming/plswork/Hephaestus-Webapp/app/Profile/page.jsx
+// File: /Users/alejandro-garf/Programming/HomePage/Hephaestus-Webapp/app/Profile/page.jsx
 import * as entry from '../../../../app/Profile/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

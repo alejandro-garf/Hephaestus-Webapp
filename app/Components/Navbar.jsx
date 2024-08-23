@@ -2,40 +2,44 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import { UserAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, googleSignIn, logOut } = UserAuth();
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   // Function to handle sign-in using Google authentication
   const handleSignIn = async () => {
     try {
       await googleSignIn();
+      router.push('/Dashboard'); // Redirect to Dashboard after successful sign-in
     } catch (error) {
       console.log(error);
     }
   };
 
-    // Function to handle sign-out
+  // Function to handle sign-out
   const handleSignOut = async () => {
     try {
       await logOut();
+      router.push('/'); // Redirect to home page after sign-out
     } catch (error) {
       console.log(error);
     }
   };
 
-    // useEffect to check authentication status and update loading state
+  // useEffect to check authentication status and update loading state
   useEffect(() => {
     const checkAuthentication = async () => {
       await new Promise((resolve) => setTimeout(resolve, 50));
       setLoading(false);
     };
     checkAuthentication();
-  }, [user]); // Dependency array includes user, so the effect runs when the user changes
+  }, [user]);
 
-  //render the navbar
+  // render the navbar
   return (
     <div className="navbar flex justify-between items-center">
       <ul className="flex space-x-4">
@@ -47,7 +51,7 @@ const Navbar = () => {
         </li>
         {user && (
           <li className="p-2 cursor-pointer">
-            <Link href="/Profile">Profile</Link>
+            <Link href="/Dashboard">Dashboard</Link>
           </li>
         )}
       </ul>
