@@ -615,8 +615,17 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
+.mb-12 {
+  margin-bottom: 3rem;
+}
+.mb-16 {
+  margin-bottom: 4rem;
+}
 .mb-4 {
   margin-bottom: 1rem;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
 }
 .mb-8 {
   margin-bottom: 2rem;
@@ -624,26 +633,17 @@ video {
 .mt-4 {
   margin-top: 1rem;
 }
-.mb-12 {
-  margin-bottom: 3rem;
-}
-.mb-16 {
-  margin-bottom: 4rem;
-}
-.mb-6 {
-  margin-bottom: 1.5rem;
-}
 .flex {
   display: flex;
+}
+.h-64 {
+  height: 16rem;
 }
 .h-full {
   height: 100%;
 }
 .h-screen {
   height: 100vh;
-}
-.h-64 {
-  height: 16rem;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -703,9 +703,6 @@ video {
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
-.bg-gradient-to-r {
-  background-image: linear-gradient(to right, var(--tw-gradient-stops));
-}
 .from-black {
   --tw-gradient-from: #000 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
@@ -716,28 +713,18 @@ video {
   --tw-gradient-to: rgb(31 41 55 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
-.from-blue-400 {
-  --tw-gradient-from: #60a5fa var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(96 165 250 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-.from-purple-400 {
-  --tw-gradient-from: #c084fc var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(192 132 252 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
 .from-gray-900 {
   --tw-gradient-from: #111827 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(17 24 39 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
-.via-gray-900 {
-  --tw-gradient-to: rgb(17 24 39 / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), #111827 var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
 .via-black {
   --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #000 var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+.via-gray-900 {
+  --tw-gradient-to: rgb(17 24 39 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #111827 var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 .to-black {
   --tw-gradient-to: #000 var(--tw-gradient-to-position);
@@ -745,17 +732,8 @@ video {
 .to-gray-800 {
   --tw-gradient-to: #1f2937 var(--tw-gradient-to-position);
 }
-.to-green-400 {
-  --tw-gradient-to: #4ade80 var(--tw-gradient-to-position);
-}
-.to-pink-600 {
-  --tw-gradient-to: #db2777 var(--tw-gradient-to-position);
-}
 .to-gray-900 {
   --tw-gradient-to: #111827 var(--tw-gradient-to-position);
-}
-.bg-clip-text {
-  background-clip: text;
 }
 .object-cover {
   object-fit: cover;
@@ -763,15 +741,16 @@ video {
 .p-2 {
   padding: 0.5rem;
 }
-.p-4 {
-  padding: 1rem;
-}
 .p-8 {
   padding: 2rem;
 }
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .px-6 {
   padding-left: 1.5rem;
@@ -785,10 +764,6 @@ video {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
 .pr-8 {
   padding-right: 2rem;
 }
@@ -798,6 +773,10 @@ video {
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 .text-5xl {
   font-size: 3rem;
@@ -811,10 +790,6 @@ video {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
 .font-bold {
   font-weight: 700;
 }
@@ -827,9 +802,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.text-transparent {
-  color: transparent;
 }
 .opacity-0 {
   opacity: 0;
@@ -1009,10 +981,6 @@ body {
 
   .md\:mb-0 {
     margin-bottom: 0px;
-  }
-
-  .md\:h-auto {
-    height: auto;
   }
 
   .md\:h-96 {
