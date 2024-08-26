@@ -21,7 +21,3 @@ So far thisn project serves as the initial framework for building the full-featu
  - **Add Dashbaord page
  - **Add Device Info Page
  - **Connect with database to display real-time data
-
-
-### Home Page Updates
-- Changed routes for sign in/sign out functions to maximize user experience.
