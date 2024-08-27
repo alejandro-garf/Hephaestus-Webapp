@@ -1,117 +1,135 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@tailwind base; /* Tailwind's base styles */
+@tailwind components; /* Tailwind's component styles */
+@tailwind utilities; /* Tailwind's utility classes */
 
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+/* Root variables for theming colors */
 :root {
-  --foreground-rgb: 255, 255, 255; /* White color for foreground elements */
-  --navbar-footer-start-rgb: 58, 17, 110; /* Start color of the navbar/footer gradient */
-  --navbar-footer-end-rgb: 123, 31, 162; /* End color of the navbar/footer gradient */
-  --background-start-rgb: 0, 0, 0; /* Start color of the black gradient */
-  --background-end-rgb: 50, 50, 50; /* End color of the black gradient */
-  --button-text-color: #7B1FA2; /* Purple color for button text */
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-mid-rgb: 17, 24, 39;
+  --background-end-rgb: 31, 41, 55;
 }
 
-/* Base styling for the body */
+/* Global styles for the body */
 body {
-  font-family: 'Inter', sans-serif; /* Apply the Inter font */
-  background-color: var(--background-color); /* Set background color (should be defined in :root) */
-  color: rgb(var(--foreground-rgb)); /* Set text color to white */
+  font-family: 'Inter', sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-end-rgb));
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Ensure padding and border are included in element's width and height */
+  box-sizing: border-box;
 }
 
-/* Styling for the navbar and footer */
-.navbar, .footer {
-  background: linear-gradient(
-    to right,
-    rgb(var(--navbar-footer-start-rgb)),
-    rgb(var(--navbar-footer-end-rgb))
-  ); /* Apply a horizontal purple gradient */
-  color: rgb(var(--foreground-rgb)) !important; /* Set text color to white */
-  padding: 10px;
-  font-family: 'Inter', sans-serif; /* Use Inter font */
-  font-weight: bold; /* Make text bold */
-}
-
-/* Home container styling */
-.home-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100vh; /* Full viewport height */
-  padding: 0 10%;
+/* Styles for the navbar */
+.navbar {
   background: linear-gradient(
     to bottom,
     rgb(var(--background-start-rgb)),
-    rgb(var(--background-end-rgb))
-  ); /* Apply vertical black gradient */
-  font-family: 'Inter', sans-serif; /* Use Inter font */
+    rgb(var(--background-mid-rgb))
+  );
+  color: rgb(var(--foreground-rgb));
+  padding: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
 }
 
-/* Footer styling */
-.footer {
+/* Styles for the home container */
+.home-container {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-mid-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  color: rgb(var(--foreground-rgb));
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  padding: 4rem 10%;
+}
+
+/* Styles for the product information section */
+.product-info {
   background: linear-gradient(
     to bottom,
     rgb(var(--background-end-rgb)),
-    rgb(var(--background-end-rgb))
-  ); /* Continue the black gradient from the body */
-  padding: 10px 0;
-  text-align: center; /* Center text */
-  font-family: 'Inter', sans-serif; /* Use Inter font */
-  font-weight: bold; /* Make text bold */
+    rgb(var(--background-mid-rgb)),
+    rgb(var(--background-start-rgb))
+  );
+  color: rgb(var(--foreground-rgb));
+  font-family: 'Inter', sans-serif;
+  min-height: 50vh;
+  padding: 4rem 10%;
 }
 
-/* Styling for footer text and links with a white gradient */
-.footer p, .footer a {
+/* Styles for the footer */
+.footer {
+  background: rgb(var(--background-start-rgb));
+  padding: 1rem 0;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  color: rgb(var(--foreground-rgb));
+}
+
+/* Gradient text effect for headings and paragraphs */
+.text-section h1, .text-section p, .product-info h2, .product-info p {
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0.9),
     rgba(255, 255, 255, 0.6)
-  ); /* Apply a horizontal white gradient to text */
-  -webkit-background-clip: text; /* Clip background to text */
-  -webkit-text-fill-color: transparent; /* Make text color transparent to reveal the gradient */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Styling for main headings and paragraphs in the home section */
-.text-section h1, .text-section p {
-  background: linear-gradient(
-    to right,
-    rgb(var(--navbar-footer-start-rgb)),
-    rgb(var(--navbar-footer-end-rgb))
-  ); /* Apply a horizontal purple gradient to text */
-  -webkit-background-clip: text; /* Clip background to text */
-  -webkit-text-fill-color: transparent; /* Make text color transparent to reveal the gradient */
-}
-
-/* Styling for the sign-in button */
-.sign-in-btn {
+/* Button styles for sign-in and dashboard actions */
+.sign-in-btn, .Dashboard-btn {
   background: linear-gradient(
     to right,
     rgb(var(--background-start-rgb)),
     rgb(var(--background-end-rgb))
-  ); /* Apply horizontal black gradient to the button */
-  color: var(--button-text-color); /* Set text color to purple */
-  padding: 0.75rem 2rem; /* Add padding inside the button */
-  border-radius: 9999px; /* Make the button fully rounded */
-  text-transform: uppercase; /* Transform text to uppercase */
-  font-weight: bold; /* Make text bold */
-  transition: background-color 0.3s ease; /* Smooth transition effect on hover */
-  border: none; /* Remove default button border */
-  cursor: pointer; /* Show pointer cursor on hover */
+  );
+  color: rgb(var(--foreground-rgb));
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
 }
 
-/* Hover effect for the sign-in button */
-.sign-in-btn:hover {
-  background-color: #333333; /* Slightly darken background on hover */
+/* Hover effect for buttons */
+.sign-in-btn:hover, .Dashboard-btn:hover {
+  background-color: rgb(var(--background-mid-rgb));
 }
 
-/* Styling for images in the image section */
-.image-section img {
-  max-width: 100%; /* Ensure image doesn't exceed its container's width */
-  height: auto; /* Maintain aspect ratio */
-  width: 50%; /* Set width of image */
+/* Styles for images within the image and logo sections */
+.image-section img, .logo-section img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Layout for the product information section */
+.product-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Text section within the product information */
+.product-info .info-text {
+  flex: 2;
+  padding-right: 2rem;
+}
+
+/* Logo section within the product information */
+.product-info .logo-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

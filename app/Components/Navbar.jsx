@@ -1,43 +1,37 @@
 'use client'; 
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import { UserAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, googleSignIn, logOut } = UserAuth();
-  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  // Function to handle sign-in using Google authentication
+  //Sign in function
   const handleSignIn = async () => {
     try {
       await googleSignIn();
+      router.push('/Dashboard'); //Reroutes user to dashboard after sign in
     } catch (error) {
       console.log(error);
     }
   };
 
-    // Function to handle sign-out
+  //Sign out function
   const handleSignOut = async () => {
     try {
       await logOut();
+      router.push('/'); //reroutes user to homepage after sign out
     } catch (error) {
       console.log(error);
     }
   };
 
-    // useEffect to check authentication status and update loading state
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 50));
-      setLoading(false);
-    };
-    checkAuthentication();
-  }, [user]); // Dependency array includes user, so the effect runs when the user changes
-
-  //render the navbar
+  //Navbar layout & components
   return (
-    <div className="navbar flex justify-between items-center">
+    <div className="navbar flex justify-between items-center bg-gradient-to-b from-black to-gray-800 text-white">
       <ul className="flex space-x-4">
         <li className="p-2 cursor-pointer">
           <Link href="/">Home</Link>
@@ -47,22 +41,22 @@ const Navbar = () => {
         </li>
         {user && (
           <li className="p-2 cursor-pointer">
-            <Link href="/Profile">Profile</Link>
+            <Link href="/Dashboard">Dashboard</Link>
           </li>
         )}
       </ul>
-      {!loading && (
-        <div className="flex space-x-4">
-          {!user ? (
-            <>
-              <li onClick={handleSignIn} className="p-2 cursor-pointer">Login</li>
-              <li onClick={handleSignIn} className="p-2 cursor-pointer">Sign Up</li>
-            </>
-          ) : (
-            <li className="cursor-pointer" onClick={handleSignOut}>Sign Out</li>
-          )}
-        </div>
-      )}
+      <div className="flex space-x-4">
+        {!user ? (
+          //Login and Sign up function (same thing)
+          <>
+            <li onClick={handleSignIn} className="p-2 cursor-pointer">Login</li> 
+            <li onClick={handleSignIn} className="p-2 cursor-pointer">Sign Up</li>
+          </>
+        ) : (
+          //Sign out function that only shows up once signed in
+          <li className="cursor-pointer p-2" onClick={handleSignOut}>Sign Out</li>
+        )}
+      </div>
     </div>
   );
 };

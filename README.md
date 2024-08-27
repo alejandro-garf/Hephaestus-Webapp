@@ -17,7 +17,7 @@ So far thisn project serves as the initial framework for building the full-featu
 - **Tailwind CSS**: A utility-first CSS framework for quick and efficient styling.
 
 ## Future Development
-## Future Development
+
  - **Add Dashbaord page
  - **Add Device Info Page
  - **Connect with database to display real-time data
