@@ -1,6 +1,3 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/Dashboard/page": "app/Dashboard/page.js",
-  "/Dashboard/device/page": "app/Dashboard/device/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/Dashboard/device/page": "app/Dashboard/device/page.js"
 }
