@@ -1,14 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { fetchDashboardData } from './dashboardService';
 
 export default function DashboardPage() {
+  // State variables for dashboard data, loading status, and error handling
   const [dashboardData, setDashboardData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Effect hook to fetch dashboard data on component mount
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
@@ -24,19 +27,22 @@ export default function DashboardPage() {
     loadDashboardData();
   }, []);
 
+  // Colors for pie chart
   const COLORS = ['#FF6B6B', '#4ECDC4'];
 
+  // Conditional rendering based on loading and error states
   if (isLoading) return <div className="text-white text-center mt-8">Loading dashboard data...</div>;
   if (error) return <div className="text-red-500 text-center mt-8">{error}</div>;
   if (!dashboardData) return null;
 
+  // Destructure the dashboard data
   const { devices, statusData, pieData } = dashboardData;
 
   return (
     <div className="bg-gradient-to-b from-gray-900 to-black text-white min-h-screen p-8">
       <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
 
-      {/* Status Cards */}
+      {/* Status Cards Section */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         {statusData.map((item) => (
           <div key={item.name} className="bg-gray-800 p-4 rounded-lg shadow-lg">
@@ -47,7 +53,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
-        {/* Device Table */}
+        {/* Device Table Section */}
         <div className="bg-gray-800 p-4 rounded-lg shadow-lg overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -60,7 +66,12 @@ export default function DashboardPage() {
             <tbody>
               {devices.map((device) => (
                 <tr key={device.id} className="border-b border-gray-700">
-                  <td className="p-2">{device.id}</td>
+                  <td className="p-2">
+                    {/* Link to device detail page */}
+                    <Link href="/Dashboard/device" className="text-blue-400 hover:text-blue-300 underline">
+                      {device.id}
+                    </Link>
+                  </td>
                   <td className="p-2">{device.lastEmptied}</td>
                   <td className="p-2">{device.capacity}%</td>
                 </tr>
@@ -69,7 +80,7 @@ export default function DashboardPage() {
           </table>
         </div>
 
-        {/* Pie Chart */}
+        {/* Pie Chart Section */}
         <div className="bg-gray-800 p-4 rounded-lg shadow-lg flex justify-center items-center">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -93,7 +104,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Bar Chart */}
+      {/* Bar Chart Section */}
       <div className="bg-gray-800 p-4 rounded-lg shadow-lg">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
