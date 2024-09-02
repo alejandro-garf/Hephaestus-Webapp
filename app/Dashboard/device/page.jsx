@@ -5,9 +5,15 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
 // CustomProgress component defined inline
-// Creates a progress bar with a blue fill
-// Shows a random value every time you load
+// This component creates a progress bar that changes color based on the value
 const CustomProgress = React.forwardRef(({ value, className, ...props }, ref) => {
+  // Function to determine the color based on the value
+  const getColor = (value) => {
+    if (value <= 30) return 'bg-green-500';
+    if (value <= 70) return 'bg-yellow-500';
+    return 'bg-red-500';
+  };
+
   return (
     <div
       ref={ref}
@@ -20,7 +26,7 @@ const CustomProgress = React.forwardRef(({ value, className, ...props }, ref) =>
     >
       {/* The filled part of the progress bar */}
       <div
-        className="h-full w-full flex-1 bg-blue-600 transition-all"
+        className={`h-full w-full flex-1 transition-all ${getColor(value)}`}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
     </div>
@@ -85,7 +91,7 @@ export default function DevicePage() {
       <div className="bg-gray-800 rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-bold mb-4">Device {deviceData.id}</h2>
         <div className="space-y-4">
-          {/* Capacity section with progress bar */}
+          {/* Capacity section with color-changing progress bar */}
           <div>
             <p className="text-sm text-gray-400 mb-2">Capacity</p>
             <div className="flex items-center space-x-4">
