@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Backend from '@/app/utils/utils';
 
 // CustomProgress component defined inline
 // This component creates a progress bar that changes color based on the value
@@ -39,7 +40,8 @@ CustomProgress.displayName = "CustomProgress";
 // This function simulates fetching device data from an API
 const fetchDeviceData = async (id) => {
   // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  // await new Promise(resolve => setTimeout(resolve, 1000));
+  console.log('load page');
   // Return mock data
   return {
     id: id,
@@ -49,6 +51,8 @@ const fetchDeviceData = async (id) => {
     status: 'Active'
   };
 };
+
+console.log('in loading page');
 
 export default function DevicePage() {
   const params = useParams();
@@ -72,6 +76,8 @@ export default function DevicePage() {
 
     loadDeviceData();
   }, [params.id]);
+
+
 
   // Show loading state while fetching data
   if (isLoading) return <div className="text-white text-center mt-8">Loading device data...</div>;

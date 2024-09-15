@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { fetchDashboardData } from './dashboardService';
+import Backend from '../utils/utils';
 
 export default function DashboardPage() {
   // State variables for dashboard data, loading status, and error handling
@@ -16,6 +17,8 @@ export default function DashboardPage() {
     const loadDashboardData = async () => {
       try {
         const data = await fetchDashboardData();
+        const test_data = await Backend.get('/device/all_device'); //testing route to fetch all device. should be replaced by fetch all device owned by user
+        console.log(test_data.data);
         setDashboardData(data);
         setIsLoading(false);
       } catch (err) {
