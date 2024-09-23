@@ -3,22 +3,33 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { fetchDashboardData } from './dashboardService';
-import Backend from '../utils/utils';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
+});
+
+const fetchDashboardData = async () => {
+  try {
+    const devicesResponse = await api.get('/device/all_device');
+    return {
+      devices: devicesResponse.data,
+    };
+  } catch (error) {
+    console.error('Error fetching dashboard data:', error);
+    throw error;
+  }
+};
 
 export default function DashboardPage() {
-  // State variables for dashboard data, loading status, and error handling
   const [dashboardData, setDashboardData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Effect hook to fetch dashboard data on component mount
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
         const data = await fetchDashboardData();
-        const test_data = await Backend.get('/device/all_device'); //testing route to fetch all device. should be replaced by fetch all device owned by user
-        console.log(test_data.data);
         setDashboardData(data);
         setIsLoading(false);
       } catch (err) {
@@ -30,22 +41,32 @@ export default function DashboardPage() {
     loadDashboardData();
   }, []);
 
-  // Colors for pie chart
   const COLORS = ['#FF6B6B', '#4ECDC4'];
 
-  // Conditional rendering based on loading and error states
   if (isLoading) return <div className="text-white text-center mt-8">Loading dashboard data...</div>;
   if (error) return <div className="text-red-500 text-center mt-8">{error}</div>;
   if (!dashboardData) return null;
 
-  // Destructure the dashboard data
-  const { devices, statusData, pieData } = dashboardData;
+  const { devices } = dashboardData;
+
+  // Calculate status data
+  const statusData = [
+    { name: 'Active', value: devices.filter(d => d.capacity < 100).length },
+    { name: 'Full', value: devices.filter(d => d.capacity === 100).length },
+    { name: 'Offline', value: 0 }, // You may need to adjust this based on your data structure
+  ];
+
+  // Calculate pie data
+  const pieData = [
+    { name: 'Full', value: devices.filter(d => d.capacity === 100).length },
+    { name: 'Not Full', value: devices.filter(d => d.capacity < 100).length },
+  ];
 
   return (
     <div className="bg-gradient-to-b from-gray-900 to-black text-white min-h-screen p-8">
       <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
 
-      {/* Status Cards Section */}
+      {/* Status Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         {statusData.map((item) => (
           <div key={item.name} className="bg-gray-800 p-4 rounded-lg shadow-lg">
@@ -56,7 +77,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
-        {/* Device Table Section */}
+        {/* Device Table */}
         <div className="bg-gray-800 p-4 rounded-lg shadow-lg overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -70,12 +91,11 @@ export default function DashboardPage() {
               {devices.map((device) => (
                 <tr key={device.id} className="border-b border-gray-700">
                   <td className="p-2">
-                    {/* Link to device detail page */}
-                    <Link href="/Dashboard/device" className="text-blue-400 hover:text-blue-300 underline">
+                    <Link href={`/dashboard/device/${device.id}`} className="text-blue-400 hover:text-blue-300 underline">
                       {device.id}
                     </Link>
                   </td>
-                  <td className="p-2">{device.lastEmptied}</td>
+                  <td className="p-2">{device.last_refill}</td>
                   <td className="p-2">{device.capacity}%</td>
                 </tr>
               ))}
@@ -83,7 +103,7 @@ export default function DashboardPage() {
           </table>
         </div>
 
-        {/* Pie Chart Section */}
+        {/* Pie Chart */}
         <div className="bg-gray-800 p-4 rounded-lg shadow-lg flex justify-center items-center">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -107,7 +127,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Bar Chart Section */}
+      {/* Bar Chart */}
       <div className="bg-gray-800 p-4 rounded-lg shadow-lg">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
