@@ -16,6 +16,6 @@ So far thisn project serves as the initial framework for building the full-featu
 - **Firebase Authentication**: Simplifies the process of authenticating users with Google.
 - **Tailwind CSS**: A utility-first CSS framework for quick and efficient styling.
 
-## Future Development
- - **Make Device Details page dybamic with every device id
- - **Connect with database to display real-time data
+## To run
+- Install Node
+- Install Axios 
