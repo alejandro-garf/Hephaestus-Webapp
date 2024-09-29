@@ -1,24 +1,51 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { fetchDashboardData } from './dashboardService';
-import Backend from '../utils/utils';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
+});
+
+const fetchDashboardData = async () => {
+  try {
+    const devicesResponse = await api.get('/device/all_device');
+    return {
+      devices: devicesResponse.data,
+    };
+  } catch (error) {
+    console.error('Error fetching dashboard data:', error);
+    throw error;
+  }
+};
+
+const fetchDeviceDetails = async (id) => {
+  try {
+    const response = await api.get(`/device/${id}`);
+    return response.data[0];
+  } catch (error) {
+    console.error('Error fetching device details:', error);
+    throw error;
+  }
+};
+
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
 
 export default function DashboardPage() {
-  // State variables for dashboard data, loading status, and error handling
   const [dashboardData, setDashboardData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedDevice, setSelectedDevice] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Effect hook to fetch dashboard data on component mount
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
         const data = await fetchDashboardData();
-        const test_data = await Backend.get('/device/all_device'); //testing route to fetch all device. should be replaced by fetch all device owned by user
-        console.log(test_data.data);
         setDashboardData(data);
         setIsLoading(false);
       } catch (err) {
@@ -30,22 +57,42 @@ export default function DashboardPage() {
     loadDashboardData();
   }, []);
 
-  // Colors for pie chart
+  const handleDeviceClick = async (id) => {
+    try {
+      const deviceData = await fetchDeviceDetails(id);
+      setSelectedDevice(deviceData);
+      setIsModalOpen(true);
+    } catch (err) {
+      console.error('Failed to load device details:', err);
+    }
+  };
+
   const COLORS = ['#FF6B6B', '#4ECDC4'];
 
-  // Conditional rendering based on loading and error states
   if (isLoading) return <div className="text-white text-center mt-8">Loading dashboard data...</div>;
   if (error) return <div className="text-red-500 text-center mt-8">{error}</div>;
   if (!dashboardData) return null;
 
-  // Destructure the dashboard data
-  const { devices, statusData, pieData } = dashboardData;
+  const { devices } = dashboardData;
+
+  // Calculate status data
+  const statusData = [
+    { name: 'Active', value: devices.filter(d => d.capacity < 100).length },
+    { name: 'Full', value: devices.filter(d => d.capacity === 100).length },
+    { name: 'Offline', value: 0 },
+  ];
+
+  // Calculate pie data
+  const pieData = [
+    { name: 'Full', value: devices.filter(d => d.capacity === 100).length },
+    { name: 'Not Full', value: devices.filter(d => d.capacity < 100).length },
+  ];
 
   return (
     <div className="bg-gradient-to-b from-gray-900 to-black text-white min-h-screen p-8">
       <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
 
-      {/* Status Cards Section */}
+      {/* Status Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         {statusData.map((item) => (
           <div key={item.name} className="bg-gray-800 p-4 rounded-lg shadow-lg">
@@ -56,7 +103,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
-        {/* Device Table Section */}
+        {/* Device Table */}
         <div className="bg-gray-800 p-4 rounded-lg shadow-lg overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -70,12 +117,14 @@ export default function DashboardPage() {
               {devices.map((device) => (
                 <tr key={device.id} className="border-b border-gray-700">
                   <td className="p-2">
-                    {/* Link to device detail page */}
-                    <Link href="/Dashboard/device" className="text-blue-400 hover:text-blue-300 underline">
+                    <button 
+                      onClick={() => handleDeviceClick(device.id)}
+                      className="text-blue-400 hover:text-blue-300 underline"
+                    >
                       {device.id}
-                    </Link>
+                    </button>
                   </td>
-                  <td className="p-2">{device.lastEmptied}</td>
+                  <td className="p-2">{formatDate(device.last_refill)}</td>
                   <td className="p-2">{device.capacity}%</td>
                 </tr>
               ))}
@@ -83,7 +132,7 @@ export default function DashboardPage() {
           </table>
         </div>
 
-        {/* Pie Chart Section */}
+        {/* Pie Chart */}
         <div className="bg-gray-800 p-4 rounded-lg shadow-lg flex justify-center items-center">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -107,7 +156,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Bar Chart Section */}
+      {/* Bar Chart */}
       <div className="bg-gray-800 p-4 rounded-lg shadow-lg">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
@@ -126,6 +175,47 @@ export default function DashboardPage() {
           </BarChart>
         </ResponsiveContainer>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && selectedDevice && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-gray-800 p-6 rounded-lg max-w-md w-full">
+            <h2 className="text-2xl font-bold mb-4">Device {selectedDevice.id}</h2>
+            <div className="space-y-4">
+              <div>
+                <p className="text-sm text-gray-400 mb-2">Capacity</p>
+                <div className="flex items-center space-x-4">
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div 
+                      className="bg-blue-600 h-2.5 rounded-full" 
+                      style={{width: `${selectedDevice.capacity}%`}}
+                    ></div>
+                  </div>
+                  <span className="text-lg font-bold whitespace-nowrap">{selectedDevice.capacity}%</span>
+                </div>
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Last Emptied</p>
+                <p className="text-lg">{formatDate(selectedDevice.last_refill)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Location</p>
+                <p className="text-lg">Longitude: {selectedDevice.longitude}, Latitude: {selectedDevice.latitude}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Region</p>
+                <p className="text-lg">{selectedDevice.region}</p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              className="mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
