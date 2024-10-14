@@ -1,21 +1,61 @@
-# Hephaestus-Webapp
+# Hephaestus Water TrashBin Monitering Platform
+# River Pollution Monitoring Webapp
+
 
 ## Overview
 
-So far thisn project serves as the initial framework for building the full-featured application that is the Hephaestus WebApp. It provides a starting point with a website skeleton user authentication and basic navigation, allowing for easy expansion and customization.
+A full-stack web application developed to monitor river pollution in real-time, leveraging custom IoT sensors installed on Seabin devices. This project focuses on the automation and optimization of waste collection, with secure user authentication and scalable infrastructure.
 
-## Key Features
+## Technologies
 
-- **Google Authentication**: Users can sign in and out using their Google accounts through a popup window, facilitated by Firebase Authentication.
-- **Modular Architecture**: Designed to be easily extended with additional features and pages.
-- **Responsive Layout**: Includes a basic responsive navbar that adapts based on the user's authentication status.
+- **Frontend**: Next.js, React
+- **Backend**: Express.js, PostgreSQL
+- **Authentication**: Firebase Authentication
+- **Cloud Services**: AWS
 
-## Technologies Used
+## Features
 
-- **Next.js**: A powerful React framework for building modern web applications.
-- **Firebase Authentication**: Simplifies the process of authenticating users with Google.
-- **Tailwind CSS**: A utility-first CSS framework for quick and efficient styling.
+- **Real-time Monitoring**: Integrates with custom IoT sensors to track and monitor Seabin devices, providing live data on waste collection.
+- **Secure Authentication**: Implements Firebase Authentication with custom Express.js middleware for token verification, ensuring user data privacy and session integrity.
+- **Scalable Architecture**: Designed for scalability, facilitating the expansion of waste collection operations and improving efficiency.
+  
+## Timeline
 
-## To run
-- Install Node
-- Install Axios 
+- **Development Period**: July 2024 – October 2024
+
+## Key Contributions
+
+- Engineered the web application that interfaces with IoT sensors for real-time monitoring.
+- Implemented user authentication and protected routes using Firebase and Express middleware.
+- Optimized waste collection scheduling, significantly enhancing river cleanup efficiency.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo-url.git
+   cd your-repo-folder
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up Firebase authentication:
+   - Create a Firebase project and add the necessary configurations in `firebase.js`.
+
+4. Set up environment variables for AWS, PostgreSQL, and Firebase.
+
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+Feel free to customize this template further as needed!
